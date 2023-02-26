@@ -16,6 +16,7 @@ import * as admin from 'firebase-admin'
 // };
 
 const serviceAccount = JSON.parse(Buffer.from(process.env.SERVICE_ACC_ENCODED, 'base64').toString());
+console.log(serviceAccount);
 
 const app = !admin.apps.length ? admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
