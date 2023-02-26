@@ -2,18 +2,20 @@ import { buffer } from 'micro'
 import * as admin from 'firebase-admin'
 
 // Scure a connection to firebase from the backend
-const serviceAccount = {
-    "type": "service_account",
-    "project_id": "amazn-clone-45b76",
-    "private_key_id": `${process.env.PERMISSION_PRIVATE_KEY_ID}`,
-    "private_key": process.env.PERMISSION_PRIVATE_KEY.replace(/\\n/g, '\n'),
-    "client_email": "firebase-adminsdk-ws5a7@amazn-clone-45b76.iam.gserviceaccount.com",
-    "client_id": "112913292646183542964",
-    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-    "token_uri": "https://oauth2.googleapis.com/token",
-    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-    "client_x509_cert_url": `${process.env.CLIENT_CERT_URL}`
-};
+// const serviceAccount = {
+//     "type": "service_account",
+//     "project_id": "amazn-clone-45b76",
+//     "private_key_id": `${process.env.PERMISSION_PRIVATE_KEY_ID}`,
+//     "private_key": process.env.PERMISSION_PRIVATE_KEY.replace(/\\n/g, '\n'),
+//     "client_email": "firebase-adminsdk-ws5a7@amazn-clone-45b76.iam.gserviceaccount.com",
+//     "client_id": "112913292646183542964",
+//     "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+//     "token_uri": "https://oauth2.googleapis.com/token",
+//     "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+//     "client_x509_cert_url": `${process.env.CLIENT_CERT_URL}`
+// };
+
+const serviceAccount = JSON.parse(Buffer.from(process.env.SERVICE_ACC_ENCODED, 'base64').toString());
 
 const app = !admin.apps.length ? admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
