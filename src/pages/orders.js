@@ -17,14 +17,24 @@ const Orders = ({ orders }) => {
                 <h1 className='text-3xl border-b mb-2 pb-1 border-yellow-400'>Your Orders</h1>
 
                 {session ? (
-                    <h2>x Orders</h2>
+                    orders.length > 1 ? (<h2>{orders.length} {orders.length > 1 ? ' Orders' : ' Order'}</h2>) : (
+                        <h2>You do not have any orders placed</h2>
+                    )
                 ) : (
                     <h2>Please Sign in to see your orders</h2>
                 )}
 
                 <div className='mt-5 space-y-4'>
-                    {orders.map((order, i) => (
-                        <Order key={i} />
+                    {orders.map(({ id, amount, amountShipping, items, timestamp, images }, i) => (
+                        <Order
+                            key={id}
+                            id={id}
+                            amount={amount}
+                            amountShipping={amountShipping}
+                            items={items}
+                            timestamp={timestamp}
+                            images={images}
+                        />
                     ))}
                 </div>
             </main>
@@ -44,7 +54,7 @@ export async function getServerSideProps(context) {
         return { props: {} };
     }
 
-    const stripeOrders = await db.collection('users').doc((await session).user.email).collection('orders').orderBy('timestamp', 'desc').get();
+    const stripeOrders = await db.collection('users').doc(session.user.email).collection('orders').orderBy('timestamp', 'desc').get();
 
     const orders = await Promise.all(
         stripeOrders.docs.map(async (order) => ({

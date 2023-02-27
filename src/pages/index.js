@@ -3,10 +3,11 @@ import { Inter } from '@next/font/google'
 import Banner from "../components/Banner";
 import Header from "../components/Header";
 import ProductFeed from "../components/ProductFeed";
+import { getSession } from 'next-auth/react';
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Home({ products }) {
+export default function Home({ products, session }) {
 
   return (
     <div className="bg-gray-100">
@@ -34,6 +35,8 @@ export async function getServerSideProps(context) {
   // const products = await fetch('https://fakestoreapi.com/products')
   //   .then(res => res.json())
 
+  const session = await getSession(context);
+
   const options = {
     method: 'GET',
     headers: {
@@ -53,7 +56,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      products
+      products, session
     }
   }
 }
