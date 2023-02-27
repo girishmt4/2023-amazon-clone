@@ -1,8 +1,10 @@
 import Header from '@/components/Header'
 import React from 'react'
 import { CheckCircleIcon } from '@heroicons/react/24/solid'
+import { useRouter } from 'next/router'
 
 const Success = () => {
+    const router = useRouter();
     return (
         <div className='bg-gray-100 h-screen'>
             <Header />
@@ -16,7 +18,7 @@ const Success = () => {
                     <p>
                         Thank you for shopping with us. We will send a confirmation to your email when your item gets shipped. If you would like to know the status of your order, please click the button below
                     </p>
-                    <button className='button mt-8'>Go to My Orders</button>
+                    <button onClick={() => router.push('/orders')} className='button mt-8'>Go to My Orders</button>
                 </div>
             </main>
         </div>

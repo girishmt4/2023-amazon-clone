@@ -21,9 +21,9 @@ const Header = () => {
                 <div className='max-w-screen-2xl flex items-center p-1 flex-grow py-2'>
 
                     {/* Logo*/}
-                    <div className='mt-2 mx-2 flex items-center flex-grow sm:flex-grow-0'>
+                    <div onClick={() => router.push('/')} className='mt-2 mx-2 flex items-center flex-grow sm:flex-grow-0'>
                         <Image src={'/static/images/amazon_PNG11.png'}
-                            onClick={() => router.push('/')}
+
                             width={90}
                             height={36}
                             className='cursor-pointer'
